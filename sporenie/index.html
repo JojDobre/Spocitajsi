@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO:START -->
+<title>Úroková kalkulačka sporenia – zložené úročenie po zdanení | SpočítajSi</title>
+<meta name="description" content="Koľko nasporíte? Úroková kalkulačka so zloženým úročením, pravidelnými mesačnými vkladmi a 19 % daňou z úrokov podľa slovenského zákona.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://www.vasa-domena.sk/sporenie/">
+<link rel="alternate" hreflang="sk" href="https://www.vasa-domena.sk/sporenie/">
+<meta name="theme-color" content="#0b6bcb">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:site_name" content="SpočítajSi">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Úroková kalkulačka sporenia – zložené úročenie po zdanení">
+<meta property="og:description" content="Koľko nasporíte? Úroková kalkulačka so zloženým úročením, pravidelnými mesačnými vkladmi a 19 % daňou z úrokov podľa slovenského zákona.">
+<meta property="og:url" content="https://www.vasa-domena.sk/sporenie/">
+<meta property="og:image" content="https://www.vasa-domena.sk/assets/og/sporenie.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sporenie a úroky">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/icons/icon-48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/style.css?v=78db5a25">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Sporenie a úroky","url":"https://www.vasa-domena.sk/sporenie/","description":"Koľko nasporíte? Úroková kalkulačka so zloženým úročením, pravidelnými mesačnými vkladmi a 19 % daňou z úrokov podľa slovenského zákona.","applicationCategory":"FinanceApplication","operatingSystem":"Všetky (webový prehliadač)","inLanguage":"sk-SK","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-11-21","image":"https://www.vasa-domena.sk/assets/og/sporenie.jpg","publisher":{"@id":"https://www.vasa-domena.sk/#organizacia"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Domov","item":"https://www.vasa-domena.sk/"},{"@type":"ListItem","position":2,"name":"Sporenie a úroky","item":"https://www.vasa-domena.sk/sporenie/"}]},{"@type":"Organization","@id":"https://www.vasa-domena.sk/#organizacia","name":"SpočítajSi","url":"https://www.vasa-domena.sk/","logo":{"@type":"ImageObject","url":"https://www.vasa-domena.sk/assets/icons/icon-512.png","width":512,"height":512}}]}</script>
+<!-- SEO:END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Aká je daň z úrokov na Slovensku?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Úroky z vkladov v slovenských bankách podliehajú zrážkovej dani 19 %. Banka daň zrazí automaticky pri pripísaní úroku a úroky sa neuvádzajú v daňovom priznaní. Zdravotné poistenie sa z nich neplatí."}}
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/" aria-label="SpočítajSi – domov">Spočítaj<span>Si</span></a>
+  <nav class="main" aria-label="Hlavná navigácia">
+    <a href="/cista-mzda/">Čistá mzda</a>
+    <a href="/hypoteka/">Hypotéka</a>
+    <a href="/pn/">PN</a>
+    <a href="/materska/">Materská</a>
+    <a href="/#vsetky">Všetky kalkulačky</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+<!-- BREADCRUMB:START -->
+<nav class="crumbs" aria-label="Omrvinky"><a href="/">Domov</a> <span aria-hidden="true">›</span> <span aria-current="page">Sporenie a úroky</span></nav>
+<!-- BREADCRUMB:END -->
+  <h1>Úroková kalkulačka sporenia so zloženým úročením</h1>
+  <p class="lead">Zistite, koľko nasporíte s pravidelnými vkladmi a zloženým úročením po odpočítaní dane.</p>
+
+  <div class="grid calc">
+    <div class="card">
+      <label for="vklad">Počiatočný vklad (€)</label>
+      <input id="vklad" type="text" inputmode="decimal" value="1000" autocomplete="off">
+      <label for="mesacne">Mesačný vklad (€)</label>
+      <input id="mesacne" type="text" inputmode="decimal" value="100" autocomplete="off">
+      <div class="row">
+        <div>
+          <label for="urok">Úrok p. a. (%)</label>
+          <input id="urok" type="text" inputmode="decimal" value="2,5" autocomplete="off">
+        </div>
+        <div>
+          <label for="roky">Doba (roky)</label>
+          <input id="roky" type="number" inputmode="numeric" min="1" max="60" value="10">
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" id="dan" checked> <span>Odpočítať 19 % daň z úrokov <span class="hint">(bankové vklady na Slovensku)</span></span></label>
+    </div>
+
+    <div class="card" aria-live="polite">
+      <div class="result-main">
+        <div class="label">Na konci budete mať</div>
+        <div class="value" id="res-value">–</div>
+      </div>
+      <table class="breakdown">
+        <tr><td>Vložené spolu</td><td id="r-vlozene"></td></tr>
+        <tr class="plus"><td>Úroky pred zdanením</td><td id="r-hruby"></td></tr>
+        <tr class="minus"><td>Daň z úrokov 19 %</td><td id="r-dan"></td></tr>
+        <tr class="plus"><td>Čistý výnos</td><td id="r-cisty"></td></tr>
+        <tr class="total"><td>Konečná suma</td><td id="r-konec"></td></tr>
+      </table>
+      <p class="hint">Výpočet predpokladá vklad na začiatku každého mesiaca a mesačné pripisovanie úrokov.</p>
+    </div>
+  </div>
+
+  <div class="ad-slot"></div>
+
+  <section class="content">
+    <h2>Ako sa zdaňujú úroky a výnosy</h2>
+    <ul>
+      <li><strong>Úroky z bankových vkladov</strong> (sporiace účty, termínované vklady, vkladné knižky) v slovenských bankách podliehajú <strong>zrážkovej dani 19 %</strong> podľa § 43 zákona o dani z príjmov. Banka ju zrazí sama a do daňového priznania sa neuvádzajú.</li>
+      <li>Z úrokov sa <strong>neplatí zdravotné poistenie</strong>.</li>
+      <li>Pri <strong>podielových fondoch a ETF</strong> platia iné pravidlá: príjem z predaja cenných papierov držaných dlhšie ako 1 rok je za splnenia podmienok oslobodený od dane. Kalkulačku v tom prípade použite bez odpočtu dane.</li>
+    </ul>
+
+    <h2>Sila zloženého úročenia</h2>
+    <p>Pri zloženom úročení zarábajú aj úroky, ktoré už boli pripísané. Čím dlhšie sporíte, tým väčšiu časť konečnej sumy tvoria úroky. Vyskúšajte si zmeniť dobu sporenia z 10 na 20 rokov.</p>
+
+    <div class="partner">
+      <strong>Hľadáte lepší úrok?</strong> Sporiace účty a termínované vklady bánk sa líšia aj o niekoľko percentuálnych bodov.
+      <!-- Sem vložte affiliate odkaz na porovnanie sporiacich účtov / investičnú platformu -->
+    </div>
+
+    <h2>Časté otázky</h2>
+    <div class="faq">
+      <details><summary>Musím úroky z banky uvádzať v daňovom priznaní?</summary>
+        <p>Nie. Pri úrokoch zo slovenských bánk je daň vybraná zrážkou a tým je daňová povinnosť splnená. Úroky zo zahraničných bánk sa zdaňujú inak a spravidla sa uvádzajú v priznaní.</p></details>
+      <details><summary>Zohľadňuje kalkulačka infláciu?</summary>
+        <p>Nie. Výsledok je v nominálnych eurách. Ak je inflácia vyššia ako čistý úrok, reálna hodnota úspor klesá.</p></details>
+    </div>
+  </section>
+
+  <div class="note">Výpočet je orientačný. Skutočný výnos závisí od podmienok banky (spôsob a frekvencia pripisovania úrokov, zmeny sadzby). Nejde o investičné odporúčanie.</div>
+<!-- RELATED:START -->
+<p class="updated">Naposledy skontrolované a aktualizované: <time datetime="2026-11-21">21. 11. 2026</time></p>
+<section class="related" aria-labelledby="suvisiace"><h2 id="suvisiace">Súvisiace kalkulačky</h2>
+  <div class="cards">
+    <a class="card" href="/hypoteka/"><h3>Hypotéka</h3><p>Splátka, úroky, splátkový kalendár</p></a>
+  </div>
+</section>
+<section class="sources"><h2>Zdroje</h2><p>Výpočet vychádza z platných zákonov a údajov týchto inštitúcií. Podrobnosti nájdete v <a href="/o-nas/">metodike</a>.</p><ul><li><a href="https://www.financnasprava.sk/" rel="noopener" target="_blank">Finančná správa SR</a></li><li><a href="https://nbs.sk/" rel="noopener" target="_blank">Národná banka Slovenska</a></li></ul></section>
+<!-- RELATED:END -->
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <nav class="links" aria-label="Všetky kalkulačky">
+    <a href="/cista-mzda/">Čistá mzda</a>
+    <a href="/hypoteka/">Hypotéka</a>
+    <a href="/pn/">PN (nemocenská)</a>
+    <a href="/materska/">Materská a rodičovský</a>
+    <a href="/odvody-szco/">Odvody SZČO</a>
+    <a href="/dph/">DPH</a>
+    <a href="/minimalna-mzda/">Minimálna mzda</a>
+    <a href="/priplatky/">Príplatky</a>
+    <a href="/danovy-bonus/">Daňový bonus</a>
+    <a href="/nezdanitelna-cast/">Nezdaniteľná časť</a>
+    <a href="/cestovne-nahrady/">Cestovné náhrady</a>
+    <a href="/sporenie/">Sporenie a úroky</a>
+    <a href="/e-faktura-2027/">E-faktúra 2027</a>
+  </nav>
+  <div class="links">
+    <a href="/o-nas/">O nás a metodika</a>
+    <a href="/ochrana-sukromia/">Ochrana súkromia</a>
+  </div>
+  <p>© 2026 SpočítajSi. Výpočty sú orientačné a nenahrádzajú odborné daňové ani právne poradenstvo.</p>
+</div></footer>
+
+<script src="/assets/calc.js?v=23e1614b"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function calc() {
+    var roky = Math.min(60, Math.max(1, Math.round(Calc.cislo($('roky').value)) || 1));
+    var r = Calc.sporenie(Calc.cislo($('vklad').value), Calc.cislo($('mesacne').value),
+                          Calc.cislo($('urok').value), roky, $('dan').checked);
+    var E = Calc.eur;
+    $('res-value').textContent = E(r.konecnaSuma);
+    $('r-vlozene').textContent = E(r.vlozene);
+    $('r-hruby').textContent = '+ ' + E(r.urokHruby);
+    $('r-dan').textContent = '− ' + E(r.dan);
+    $('r-cisty').textContent = '+ ' + E(r.urokCisty);
+    $('r-konec').textContent = E(r.konecnaSuma);
+  }
+  ['vklad', 'mesacne', 'urok', 'roky', 'dan'].forEach(function (id) {
+    $(id).addEventListener('input', calc); $(id).addEventListener('change', calc);
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
