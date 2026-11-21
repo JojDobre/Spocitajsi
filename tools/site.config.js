@@ -10,8 +10,48 @@ module.exports = {
   // Overovací kód z Google Search Console (meta tag, len hodnota content="..."); prázdne = nevkladá sa
   googleVerifikacia: '',
   bingVerifikacia: '',
-  // Kód AdSense (napr. 'ca-pub-1234567890123456'); prázdne = reklama sa nenačítava
-  adsenseClient: '',
+
+  // ===================== ZARÁBANIE =====================
+  // Všetko je vypnuté, kým nevyplníte údaje. Prázdna hodnota = prvok sa na webe nezobrazí.
+  zarabanie: {
+    // 1) Google AdSense. client = 'ca-pub-…'. Ak vyplníte aj ID reklamných jednotiek,
+    //    reklama sa zobrazí na pripravených miestach; bez nich fungujú automatické reklamy Google.
+    adsense: {
+      client: '',
+      slotPodKalkulackou: '',   // jednotka pod výsledkom kalkulačky (najlepšie zarába)
+      slotVObsahu: ''           // jednotka pri konci textu
+    },
+
+    // 2) Partnerské (affiliate) odkazy. Box sa zobrazí pod kalkulačkou na stránkach v zozname `stranky`.
+    //    Odkaz je automaticky označený ako reklama (rel="sponsored"), ako vyžaduje Google aj zákon.
+    //    Príklad:
+    //    { id: 'fakturacia', stranky: ['dph', 'e-faktura-2027', 'odvody-szco'],
+    //      nadpis: 'Fakturačný program pripravený na e-faktúru 2027',
+    //      text: 'Vystavte e-faktúru za pár sekúnd. Prvý mesiac zadarmo.',
+    //      tlacidlo: 'Vyskúšať zadarmo', url: 'https://partner.sk/?ref=VAS-KOD' }
+    partneri: [],
+
+    // 3) Newsletter: zoznam e-mailov je najcennejšie aktívum webu (upozornenie na zmeny 2027).
+    //    Funguje s formulárom ľubovoľnej služby (Ecomail, MailerLite, Mailchimp, Brevo):
+    //    akcia = adresa, kam formulár odosiela (action), pole = názov poľa pre e-mail.
+    newsletter: {
+      akcia: '',
+      pole: 'email',
+      skrytePolia: {}            // napr. { 'u': '123', 'id': 'abc' } podľa služby
+    },
+
+    // 4) Dobrovoľná podpora (Buy Me a Coffee, Ko-fi, Patreon…)
+    podpora: { url: '', text: 'Pomohla vám kalkulačka? Kúpte nám kávu ☕' },
+
+    // 5) Meranie návštevnosti a kliknutí (čo zarába a čo nie).
+    //    typ: 'umami' (zadarmo, bez cookies), 'plausible' (bez cookies) alebo 'ga4' (vyžaduje súhlas s cookies).
+    //    umami: id = Website ID, skript = adresa tracker skriptu (napr. https://cloud.umami.is/script.js)
+    //    plausible: id = vaša doména bez https://;  ga4: id = 'G-XXXXXXX'
+    analytika: { typ: '', id: '', skript: '' },
+
+    // 6) Kontakt pre inzerentov (stránka /reklama/)
+    kontaktReklama: '[E-MAIL PRE INZERENTOV]'
+  },
 
   // Dátum poslednej vecnej kontroly obsahu (zobrazuje sa na stránkach a v dátach pre Google)
   aktualizovane: '2026-11-21',
@@ -35,21 +75,21 @@ module.exports = {
       typ: 'home'
     },
     {
-      slug: 'cista-mzda', badge: 'Najpoužívanejšia', nazov: 'Čistá mzda', menu: true,
+      slug: 'cista-mzda', tip: "<strong>Máte deti?</strong> Pozrite si, koľko vám patrí na <a href=\"/danovy-bonus/\">daňovom bonuse</a>, a ak pracujete cez víkend, spočítajte si <a href=\"/priplatky/\">príplatky</a>.", badge: 'Najpoužívanejšia', nazov: 'Čistá mzda', menu: true,
       title: 'Výpočet čistej mzdy 2026 – kalkulačka z hrubej na čistú',
       description: 'Čistá mzda 2026 z hrubej aj naopak: odvody 14,4 %, nové daňové pásma, nezdaniteľná časť, daňový bonus na deti a cena práce. Výpočet okamžite a zadarmo.',
       typ: 'app', kategoria: 'Mzda a dane', obrazok: 'Čistá mzda 2026', podtitul: 'Z hrubej na čistú aj naopak',
       zdroje: ['fs', 'sp', 'slovlex'], suvisiace: ['minimalna-mzda', 'danovy-bonus', 'nezdanitelna-cast', 'priplatky']
     },
     {
-      slug: 'hypoteka', nazov: 'Hypotéka', menu: true,
+      slug: 'hypoteka', tip: "<strong>Porovnajte ponuky bánk.</strong> Rozdiel 0,3 percentuálneho bodu pri úvere 150 000 € na 30 rokov znamená približne 26 € mesačne a viac ako 9 000 € za celé obdobie.", nazov: 'Hypotéka', menu: true,
       title: 'Hypotekárna kalkulačka 2026 – výpočet splátky hypotéky',
       description: 'Vypočítajte mesačnú splátku hypotéky, celkové úroky a splátkový kalendár po rokoch. Aktuálne úroky hypoték na Slovensku a limity NBS.',
       typ: 'app', kategoria: 'Úvery a sporenie', obrazok: 'Hypotekárna kalkulačka', podtitul: 'Splátka, úroky, splátkový kalendár',
       zdroje: ['nbs'], suvisiace: ['sporenie', 'cista-mzda']
     },
     {
-      slug: 'pn', badge: 'Limity 2026 aj 2027', nazov: 'PN (nemocenská)', menu: true, menuNazov: 'PN',
+      slug: 'pn', tip: "<strong>Čakáte bábätko?</strong> Spočítajte si <a href=\"/materska/\">materskú a rodičovský príspevok</a> na rok 2026 aj 2027.", badge: 'Limity 2026 aj 2027', nazov: 'PN (nemocenská)', menu: true, menuNazov: 'PN',
       title: 'Kalkulačka PN 2026 a 2027 – výpočet nemocenskej z platu',
       description: 'Koľko dostanete na PN? Výpočet náhrady príjmu od zamestnávateľa (prvých 14 dní) a nemocenského od 15. dňa podľa pravidiel 2026 aj 2027.',
       typ: 'app', kategoria: 'Dávky', obrazok: 'PN kalkulačka 2026 / 2027', podtitul: 'Náhrada príjmu a nemocenské',
@@ -63,14 +103,14 @@ module.exports = {
       zdroje: ['sp', 'upsvr', 'slovlex'], suvisiace: ['pn', 'danovy-bonus']
     },
     {
-      slug: 'odvody-szco', badge: 'Nové pravidlá od 7/2026', nazov: 'Odvody SZČO',
+      slug: 'odvody-szco', tip: "<strong>Fakturujete?</strong> Od 1. 1. 2027 musia platitelia DPH vystavovať e-faktúry. Prečítajte si <a href=\"/e-faktura-2027/\">čo treba urobiť</a>.", badge: 'Nové pravidlá od 7/2026', nazov: 'Odvody SZČO',
       title: 'Odvody SZČO 2026 – kalkulačka odvodov živnostníka od 1. 7.',
       description: 'Koľko zaplatí živnostník do Sociálnej a zdravotnej poisťovne? Nové pásma od 1. 7. 2026, mikroodvod 131,34 €, minimálne odvody 425,03 € a výhľad na 2027.',
       typ: 'app', kategoria: 'Podnikanie', obrazok: 'Odvody živnostníka 2026', podtitul: 'Mikroodvod a nové pásma od 1. 7.',
       zdroje: ['sp', 'vszp', 'slovlex'], suvisiace: ['dph', 'e-faktura-2027', 'cista-mzda']
     },
     {
-      slug: 'dph', nazov: 'DPH',
+      slug: 'dph', tip: "<strong>Fakturujete s DPH?</strong> Od 1. 1. 2027 musia platitelia DPH vystavovať e-faktúry. Pozrite si <a href=\"/e-faktura-2027/\">nášho sprievodcu e-faktúrou</a>.", nazov: 'DPH',
       title: 'DPH kalkulačka 2026 – výpočet DPH zo sumy (23 %, 19 %, 5 %)',
       description: 'Výpočet DPH zo sumy aj k cene: pripočítanie a odpočítanie DPH pri slovenských sadzbách 23 %, 19 % a 5 %. Vzorce a príklady.',
       typ: 'app', kategoria: 'Podnikanie', obrazok: 'DPH kalkulačka', podtitul: '23 %, 19 % a 5 %',
@@ -112,14 +152,14 @@ module.exports = {
       zdroje: ['mpsvr', 'slovlex'], suvisiace: ['priplatky', 'cista-mzda']
     },
     {
-      slug: 'sporenie', nazov: 'Sporenie a úroky',
+      slug: 'sporenie', tip: "<strong>Hľadáte lepší úrok?</strong> Sporiace účty a termínované vklady bánk sa líšia aj o niekoľko percentuálnych bodov.", nazov: 'Sporenie a úroky',
       title: 'Úroková kalkulačka sporenia – zložené úročenie po zdanení',
       description: 'Koľko nasporíte? Úroková kalkulačka so zloženým úročením, pravidelnými mesačnými vkladmi a 19 % daňou z úrokov podľa slovenského zákona.',
       typ: 'app', kategoria: 'Úvery a sporenie', obrazok: 'Sporenie a úroky', podtitul: 'Zložené úročenie po zdanení',
       zdroje: ['fs', 'nbs'], suvisiace: ['hypoteka']
     },
     {
-      slug: 'e-faktura-2027', badge: 'Od 1. 1. 2027', nazov: 'E-faktúra 2027',
+      slug: 'e-faktura-2027', tip: "<strong>Hľadáte fakturačný program s podporou e-faktúry?</strong> Pred výberom si overte, či program spolupracuje s certifikovaným poskytovateľom e-faktúr.", badge: 'Od 1. 1. 2027', nazov: 'E-faktúra 2027',
       title: 'E-faktúra od 1. 1. 2027 – čo musí urobiť živnostník a firma',
       description: 'Povinná e-faktúra od 1. januára 2027: koho sa týka, čo je e-faktúra, bezplatné riešenie Finančnej správy, pokuty a kontrolný zoznam krok za krokom.',
       typ: 'article', kategoria: 'Podnikanie', obrazok: 'E-faktúra od 1. 1. 2027', podtitul: 'Čo musíte urobiť',
@@ -130,6 +170,18 @@ module.exports = {
       title: 'O nás a metodika výpočtov',
       description: 'Kto stojí za kalkulačkami SpočítajSi, z akých zákonov a zdrojov vychádzajú výpočty, ako často ich aktualizujeme a ako nás kontaktovať.',
       typ: 'page', zdroje: ['fs', 'sp', 'mpsvr', 'nbs', 'slovlex']
+    },
+    {
+      slug: 'vlozit', nazov: 'Vložiť kalkulačku na web', menu: false,
+      title: 'Kalkulačky na váš web zadarmo – vloženie jedným kódom',
+      description: 'Vložte bezplatnú kalkulačku čistej mzdy, PN, materskej, DPH či hypotéky na svoj web alebo blog. Jeden riadok kódu, automatická výška, vždy aktuálne sadzby.',
+      typ: 'page'
+    },
+    {
+      slug: 'reklama', nazov: 'Reklama a spolupráca', menu: false,
+      title: 'Reklama a spolupráca – oslovte ľudí, ktorí riešia financie',
+      description: 'Reklamné možnosti na SpočítajSi: sponzorovaný box pri kalkulačke, partnerské odkazy a články pre ľudí, ktorí práve riešia mzdu, dane, hypotéku či podnikanie.',
+      typ: 'page'
     },
     {
       slug: 'ochrana-sukromia', nazov: 'Ochrana súkromia', menu: false,

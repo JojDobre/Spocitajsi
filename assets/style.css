@@ -62,7 +62,7 @@ h3 { font-size: 1.05rem; margin: 20px 0 6px; }
 label { display: block; font-weight: 600; margin: 14px 0 6px; font-size: .95rem; }
 label:first-child { margin-top: 0; }
 .hint { font-weight: 400; color: var(--muted); font-size: .85rem; }
-input[type="text"], input[type="number"], select {
+input[type="text"], input[type="number"], input[type="email"], select {
   width: 100%; padding: 11px 12px; font-size: 1.05rem; border-radius: 8px;
   border: 1px solid var(--line); background: var(--bg); color: var(--text);
 }
@@ -132,3 +132,62 @@ h2.sub { font-size: 1.05rem; margin: 20px 0 6px; }
 .sources li { padding: 5px 0; }
 footer.site .links a { display: inline-block; padding: 4px 0; }
 table.data th[scope="row"] { color: var(--text); font-weight: 400; }
+
+/* ---------- Zdieľanie ---------- */
+.share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 0; }
+.share-label { color: var(--muted); font-size: .9rem; margin-right: 2px; }
+.share a, .share button {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 12px; border-radius: 99px;
+  border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-size: .9rem;
+  text-decoration: none; cursor: pointer;
+}
+.share a:hover, .share button:hover { border-color: var(--accent); color: var(--accent); }
+.share .share-main { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.share .share-main:hover { color: #fff; filter: brightness(1.08); }
+
+/* ---------- Partner / tip ---------- */
+.partner { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 16px; margin: 18px 0; background: var(--card); }
+.partner p { margin: 4px 0 10px; }
+.partner.tip { border-style: dashed; border-left-style: solid; }
+.partner.tip p { margin: 0; }
+.ad-label { display: block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.btn { display: inline-block; background: var(--accent); color: #fff; padding: 9px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+.btn:hover { filter: brightness(1.08); }
+
+/* ---------- Reklama ---------- */
+.ad-slot.ad-on { min-height: 280px; }
+
+/* ---------- Newsletter ---------- */
+.newsletter { background: var(--accent-soft); border-radius: var(--radius); padding: 18px 20px; margin-top: 28px; }
+.newsletter h2 { margin: 0 0 6px; font-size: 1.15rem; }
+.newsletter p { margin: 0 0 12px; }
+.newsletter .nl-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.newsletter input[type="email"] { flex: 1 1 220px; width: auto; }
+.newsletter button[type="submit"] { padding: 11px 18px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.newsletter .check { font-size: .85rem; }
+
+/* ---------- Režim vloženia na iný web (?embed=1) ---------- */
+html.embed body { background: transparent; }
+html.embed header.site, html.embed footer.site, html.embed .crumbs, html.embed .lead, html.embed section.content,
+html.embed .note, html.embed .ad-slot, html.embed .money, html.embed .related, html.embed .sources,
+html.embed .updated, html.embed .newsletter { display: none !important; }
+html.embed main { padding: 8px 0 4px; }
+html.embed h1 { font-size: 1.3rem; margin-bottom: 12px; }
+html.embed .wrap { padding: 0 8px; max-width: none; }
+.embed-badge { font-size: .8rem; color: var(--muted); text-align: right; margin: 10px 0 0; }
+.embed-badge a { color: var(--accent); }
+
+/* ---------- Vloženie: generátor kódu ---------- */
+.embed-code { width: 100%; min-height: 150px; font: .85rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); resize: vertical; }
+.embed-preview { border: 1px dashed var(--line); border-radius: 10px; padding: 8px; background: var(--card); }
+.embed-preview iframe { width: 100%; border: 0; display: block; }
+
+/* ---------- Tlač ---------- */
+@media print {
+  header.site, footer.site, .crumbs, .ad-slot, .money, .share, .related, .newsletter, .seg, .faq { display: none !important; }
+  body { background: #fff; color: #000; }
+  .card { box-shadow: none; border-color: #999; }
+  .grid.calc { grid-template-columns: 1fr 1fr; }
+  a { color: #000; }
+}

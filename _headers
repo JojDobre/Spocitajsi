@@ -1,7 +1,6 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 /assets/*
@@ -12,3 +11,7 @@
 
 /tools/*
   X-Robots-Tag: noindex
+
+/embed.js
+  Cache-Control: public, max-age=3600
+  Access-Control-Allow-Origin: *

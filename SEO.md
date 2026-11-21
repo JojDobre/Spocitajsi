@@ -12,7 +12,7 @@
 - Favicon (SVG + PNG 48 px pre Google), ikona pre iPhone, `site.webmanifest`.
 - `_headers`: dlhé cache pre CSS a JS (s verziou v adrese), bezpečnostné hlavičky, `noindex` pre testy a nástroje.
 
-**Rýchlosť a prístupnosť:** Lighthouse **100 / 100 / 100 / 100** (výkon, prístupnosť, osvedčené postupy, SEO) na všetkých 15 indexovaných stránkach. Web nemá žiadne externé fonty ani knižnice. Stránka vrátane štýlov a skriptov má okolo 40 kB a po kompresii približne 12 kB.
+**Rýchlosť a prístupnosť:** Lighthouse **100 / 100 / 100 / 100** (výkon, prístupnosť, osvedčené postupy, SEO) na všetkých indexovaných stránkach. Web nemá žiadne externé fonty ani knižnice. Stránka vrátane štýlov a skriptov má okolo 40 kB a po kompresii približne 12 kB.
 
 **Obsah a dôveryhodnosť (E-E-A-T):** financie patria pre Google medzi témy „Your Money or Your Life“, kde veľmi záleží na dôveryhodnosti. Preto web obsahuje:
 - stránku **O nás a metodika** so zoznamom zákonov,

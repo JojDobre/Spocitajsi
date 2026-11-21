@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO:START -->
+<title>Kalkulačky na váš web zadarmo – vloženie jedným kódom | SpočítajSi</title>
+<meta name="description" content="Vložte bezplatnú kalkulačku čistej mzdy, PN, materskej, DPH či hypotéky na svoj web alebo blog. Jeden riadok kódu, automatická výška, vždy aktuálne sadzby.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://www.vasa-domena.sk/vlozit/">
+<link rel="alternate" hreflang="sk" href="https://www.vasa-domena.sk/vlozit/">
+<meta name="theme-color" content="#0b6bcb">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:site_name" content="SpočítajSi">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kalkulačky na váš web zadarmo – vloženie jedným kódom">
+<meta property="og:description" content="Vložte bezplatnú kalkulačku čistej mzdy, PN, materskej, DPH či hypotéky na svoj web alebo blog. Jeden riadok kódu, automatická výška, vždy aktuálne sadzby.">
+<meta property="og:url" content="https://www.vasa-domena.sk/vlozit/">
+<meta property="og:image" content="https://www.vasa-domena.sk/assets/og/vlozit.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kalkulačky na váš web zadarmo – vloženie jedným kódom">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/icons/icon-48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/style.css?v=3599c79f">
+<script>if(/[?&]embed=1(&|$)/.test(location.search)){document.documentElement.classList.add('embed');window.adsbygoogle=window.adsbygoogle||[];window.adsbygoogle.pauseAdRequests=1;}</script>
+<script>window.SPOCITAJ={"nazov":"SpočítajSi","slug":"vlozit","url":"https://www.vasa-domena.sk/vlozit/","adsense":false,"analytika":{}};</script>
+<script src="/assets/site.js?v=23778f46" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"Kalkulačky na váš web zadarmo – vloženie jedným kódom","url":"https://www.vasa-domena.sk/vlozit/","inLanguage":"sk-SK","dateModified":"2026-11-21"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Domov","item":"https://www.vasa-domena.sk/"},{"@type":"ListItem","position":2,"name":"Vložiť kalkulačku na web","item":"https://www.vasa-domena.sk/vlozit/"}]}]}</script>
+<!-- SEO:END -->
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/" aria-label="SpočítajSi – domov">Spočítaj<span>Si</span></a>
+  <nav class="main" aria-label="Hlavná navigácia">
+    <a href="/cista-mzda/">Čistá mzda</a>
+    <a href="/hypoteka/">Hypotéka</a>
+    <a href="/pn/">PN</a>
+    <a href="/materska/">Materská</a>
+    <a href="/#vsetky">Všetky kalkulačky</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+<!-- BREADCRUMB:START -->
+<nav class="crumbs" aria-label="Omrvinky"><a href="/">Domov</a> <span aria-hidden="true">›</span> <span aria-current="page">Vložiť kalkulačku na web</span></nav>
+<!-- BREADCRUMB:END -->
+  <h1>Vložte kalkulačku na svoj web zadarmo</h1>
+  <p class="lead">Máte blog, web účtovnej kancelárie, personálnej agentúry, realitky alebo stránku pre rodičov? Ponúknite návštevníkom kalkulačku s aktuálnymi sadzbami. Stačí skopírovať jeden kód.</p>
+
+  <div class="grid calc">
+    <div class="card">
+      <label for="vyber">Kalkulačka</label>
+      <select id="vyber"></select>
+      <label for="sirka">Maximálna šírka</label>
+      <select id="sirka">
+        <option value="100%">Celá šírka stránky</option>
+        <option value="800px">800 px</option>
+        <option value="640px" selected>640 px</option>
+        <option value="480px">480 px</option>
+      </select>
+      <label for="kod">Kód na vloženie</label>
+      <textarea id="kod" class="embed-code" readonly spellcheck="false"></textarea>
+      <p><button type="button" class="btn" id="kopirovat" style="border:0;cursor:pointer">Skopírovať kód</button></p>
+      <p class="hint">Výška rámca sa prispôsobí automaticky. Kalkulačka sa aktualizuje sama vždy, keď sa zmenia sadzby.</p>
+    </div>
+
+    <div class="card">
+      <p class="hint" style="margin-top:0">Ukážka, ako bude kalkulačka vyzerať na vašom webe:</p>
+      <div class="embed-preview" id="nahlad-obal">
+        <iframe id="nahlad" data-spocitajsi title="Ukážka vloženej kalkulačky" loading="lazy" style="height:640px"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+    <h2>Prečo vložiť kalkulačku SpočítajSi</h2>
+    <ul>
+      <li><strong>Zadarmo a bez registrácie.</strong></li>
+      <li><strong>Vždy aktuálne sadzby.</strong> Pri zmene zákonov kalkulačku aktualizujeme my, vy nemusíte robiť nič.</li>
+      <li><strong>Bez reklamy</strong> vo vloženej kalkulačke.</li>
+      <li><strong>Prispôsobí sa</strong> mobilu aj počítaču a sama si upraví výšku.</li>
+      <li><strong>Neukladá údaje</strong> návštevníkov. Všetko sa počíta v ich prehliadači.</li>
+    </ul>
+
+    <h2>Ako kalkulačku vložiť</h2>
+    <ol>
+      <li>Vyberte kalkulačku a šírku a kliknite na <em>Skopírovať kód</em>.</li>
+      <li><strong>WordPress:</strong> pridajte blok <em>Vlastné HTML</em> a kód doň vložte.</li>
+      <li><strong>Wix, Webnode, Squarespace a iné:</strong> použite prvok <em>Vložiť HTML / Embed / Kód</em>.</li>
+      <li><strong>Vlastný web:</strong> kód vložte do HTML na miesto, kde sa má kalkulačka zobraziť.</li>
+    </ol>
+    <p>Jediná prosba: ponechajte pod kalkulačkou odkaz na zdroj. Pomáha nám to udržiavať kalkulačky zadarmo.</p>
+
+    <h2>Potrebujete kalkulačku na mieru?</h2>
+    <p>Pripravíme kalkulačku vo farbách vašej značky alebo na inú tému. Napíšte nám cez stránku <a href="/reklama/">Reklama a spolupráca</a>.</p>
+  </section>
+<!-- EMBEDLIST:START -->
+<script>window.SPOCITAJ_KALKULACKY=[{"slug":"cista-mzda","nazov":"Čistá mzda 2026","title":"Výpočet čistej mzdy 2026 – kalkulačka z hrubej na čistú"},{"slug":"hypoteka","nazov":"Hypotekárna kalkulačka","title":"Hypotekárna kalkulačka 2026 – výpočet splátky hypotéky"},{"slug":"pn","nazov":"PN kalkulačka 2026 / 2027","title":"Kalkulačka PN 2026 a 2027 – výpočet nemocenskej z platu"},{"slug":"materska","nazov":"Materská 2026 / 2027","title":"Materská kalkulačka 2026 a 2027 – výpočet materskej dávky"},{"slug":"odvody-szco","nazov":"Odvody živnostníka 2026","title":"Odvody SZČO 2026 – kalkulačka odvodov živnostníka od 1. 7."},{"slug":"dph","nazov":"DPH kalkulačka","title":"DPH kalkulačka 2026 – výpočet DPH zo sumy (23 %, 19 %, 5 %)"},{"slug":"priplatky","nazov":"Príplatky 2026 / 2027","title":"Príplatky 2026 a 2027 – sobota, nedeľa, noc, sviatok, nadčas"},{"slug":"danovy-bonus","nazov":"Daňový bonus na dieťa 2026","title":"Daňový bonus na dieťa 2026 – kalkulačka, výška a podmienky"},{"slug":"nezdanitelna-cast","nazov":"Nezdaniteľná časť 2026","title":"Nezdaniteľná časť základu dane 2026 – výška a výpočet"},{"slug":"cestovne-nahrady","nazov":"Cestovné náhrady 2026","title":"Cestovné náhrady 2026 – stravné od 1. 12. 2026 a náhrada za km"},{"slug":"sporenie","nazov":"Sporenie a úroky","title":"Úroková kalkulačka sporenia – zložené úročenie po zdanení"}];</script>
+<!-- EMBEDLIST:END -->
+<!-- RELATED:START -->
+<p class="updated">Naposledy skontrolované a aktualizované: <time datetime="2026-11-21">21. 11. 2026</time></p>
+<!-- RELATED:END -->
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <nav class="links" aria-label="Všetky kalkulačky">
+    <a href="/cista-mzda/">Čistá mzda</a>
+    <a href="/hypoteka/">Hypotéka</a>
+    <a href="/pn/">PN (nemocenská)</a>
+    <a href="/materska/">Materská a rodičovský</a>
+    <a href="/odvody-szco/">Odvody SZČO</a>
+    <a href="/dph/">DPH</a>
+    <a href="/minimalna-mzda/">Minimálna mzda</a>
+    <a href="/priplatky/">Príplatky</a>
+    <a href="/danovy-bonus/">Daňový bonus</a>
+    <a href="/nezdanitelna-cast/">Nezdaniteľná časť</a>
+    <a href="/cestovne-nahrady/">Cestovné náhrady</a>
+    <a href="/sporenie/">Sporenie a úroky</a>
+    <a href="/e-faktura-2027/">E-faktúra 2027</a>
+  </nav>
+  <div class="links">
+    <a href="/vlozit/">Vložiť kalkulačku na web</a>
+    <a href="/reklama/">Reklama a spolupráca</a>
+    <a href="/o-nas/">O nás a metodika</a>
+    <a href="/ochrana-sukromia/">Ochrana súkromia</a>
+  </div>
+  <p>© 2026 SpočítajSi. Výpočty sú orientačné a nenahrádzajú odborné daňové ani právne poradenstvo.</p>
+</div></footer>
+
+<script src="/embed.js" async></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var zoznam = window.SPOCITAJ_KALKULACKY || [];
+  var origin = (window.SPOCITAJ && window.SPOCITAJ.url) ? new URL(window.SPOCITAJ.url).origin : location.origin;
+  var pozadovana = new URLSearchParams(location.search).get('k');
+  $('vyber').innerHTML = zoznam.map(function (k) {
+    return '<option value="' + k.slug + '"' + (k.slug === pozadovana ? ' selected' : '') + '>' + k.nazov + '</option>';
+  }).join('');
+
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function aktualizuj() {
+    var k = zoznam.filter(function (x) { return x.slug === $('vyber').value; })[0];
+    if (!k) return;
+    var sirka = $('sirka').value;
+    var adresa = origin + '/' + k.slug + '/';
+    $('kod').value =
+      '<iframe data-spocitajsi src="' + adresa + '?embed=1" title="' + esc(k.title) + '" loading="lazy" ' +
+      'style="width:100%;max-width:' + sirka + ';height:640px;border:0"></iframe>\n' +
+      '<p style="font:13px/1.4 Arial,sans-serif;margin:4px 0 0">Zdroj: <a href="' + adresa + '">' + esc(k.title) + '</a> – SpočítajSi</p>\n' +
+      '<script async src="' + origin + '/embed.js"></' + 'script>';
+    $('nahlad-obal').style.maxWidth = sirka;
+    var nahlad = '/' + k.slug + '/?embed=1';
+    if ($('nahlad').getAttribute('src') !== nahlad) $('nahlad').setAttribute('src', nahlad);
+  }
+  $('vyber').addEventListener('change', aktualizuj);
+  $('sirka').addEventListener('change', aktualizuj);
+  $('kopirovat').addEventListener('click', function () {
+    var b = this;
+    (window.spocitajKopiruj ? window.spocitajKopiruj($('kod').value) : Promise.resolve()).then(function () {
+      b.textContent = 'Skopírované ✓';
+      setTimeout(function () { b.textContent = 'Skopírovať kód'; }, 2200);
+    });
+    if (window.spocitajTrack) window.spocitajTrack('vlozenie_kod_skopirovany', { kalkulacka: $('vyber').value });
+  });
+  aktualizuj();
+})();
+</script>
+</body>
+</html>

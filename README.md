@@ -1,6 +1,6 @@
 # SpočítajSi – slovenské kalkulačky 2026 a 2027
 
-Statický web (HTML + CSS + JS, bez servera a databázy) so slovenskými kalkulačkami. Zarába na **reklame (Google AdSense)** a **partnerských (affiliate) odkazoch**. Čo je hotové v SEO a čo musíte urobiť vy, popisuje **[SEO.md](SEO.md)**.
+Statický web (HTML + CSS + JS, bez servera a databázy) so slovenskými kalkulačkami. Zarába na **reklame (Google AdSense)** a **partnerských (affiliate) odkazoch**. Čo je hotové v SEO, popisuje **[SEO.md](SEO.md)**. Ako zapnúť reklamu, partnerov, newsletter a meranie, popisuje **[ZARABANIE.md](ZARABANIE.md)**.
 
 ## Stránky (každá v priečinku s `index.html`, adresa `/nazov/`)
 
@@ -20,19 +20,22 @@ Statický web (HTML + CSS + JS, bez servera a databázy) so slovenskými kalkula
 | `/cestovne-nahrady/` | stravné (do 30. 11. a od 1. 12. 2026), krátenie za jedlo, náhrada za auto |
 | `/sporenie/` | zložené úročenie s 19 % zrážkovou daňou z úrokov |
 | `/e-faktura-2027/` | sprievodca povinnou e-faktúrou od 1. 1. 2027 |
+| `/vlozit/` | generátor kódu na vloženie kalkulačky na iný web (s náhľadom) |
+| `/reklama/` | reklama a spolupráca pre inzerentov |
 | `/o-nas/` | o nás a metodika výpočtov (dôveryhodnosť pre Google) |
 | `/ochrana-sukromia/` | zásady ochrany súkromia (potrebné pre AdSense) |
 
 ## Ako to funguje
 
 - **Sadzby** sú na jednom mieste v `assets/calc.js` (objekty `P`, `D`, `CN`, `MZ`).
-- **Doména, názov webu, titulky, popisy pre Google, súvisiace kalkulačky a zdroje** sú v `tools/site.config.js`.
+- **Doména, názov webu, titulky, popisy pre Google, súvisiace kalkulačky, zdroje a všetky zárobkové prvky** sú v `tools/site.config.js`.
+- `assets/site.js`: zdieľanie (aj výsledku cez odkaz), režim vloženia `?embed=1`, reklama a meranie. `embed.js` v koreni webu je skript pre cudzie weby, ktorý prispôsobuje výšku vloženej kalkulačky.
 - `node tools/build.js`: vygeneruje SEO značky, štruktúrované dáta, hlavičku, omrvinky, súvisiace kalkulačky, pätičku, karty na úvodnej stránke, `sitemap.xml`, `robots.txt`, manifest, 404, `_headers` a `_redirects`. Spúšťa sa po každej zmene, opakované spustenie je bezpečné.
 - `node tools/generate-images.js`: vygeneruje ikony a náhľadové obrázky pre sociálne siete (stačí pri zmene názvov stránok).
 - `node tests/calc.test.js`: testy výpočtov porovnané s oficiálnymi sumami (28 testov).
-- `node tests/e2e.js`: test všetkých stránok v prehliadači na mobile aj desktope, okrajové vstupy a SEO kontroly (96 testov).
+- `node tests/e2e.js`: test všetkých stránok v prehliadači na mobile aj desktope, okrajové vstupy, zdieľanie, vloženie, zárobkové prvky (s testovacou konfiguráciou) a SEO kontroly (114 testov).
 
-**Nová stránka:** vytvorte `nazov/index.html` podľa existujúcej stránky so značkami `<!-- SEO:START -->`, `<!-- BREADCRUMB:START -->` a `<!-- RELATED:START -->`, pridajte ju do `stranky` v `tools/site.config.js` a spustite `node tools/generate-images.js` a `node tools/build.js`.
+**Nová stránka:** vytvorte `nazov/index.html` podľa existujúcej stránky so značkami `<!-- SEO:START -->`, `<!-- BREADCRUMB:START -->`, `<!-- MONEY:START -->` (zdieľanie a partner pod kalkulačkou), `<div class="ad-slot" data-slot="kalk"></div>` a `<!-- RELATED:START -->`, pridajte ju do `stranky` v `tools/site.config.js` a spustite `node tools/generate-images.js` a `node tools/build.js`.
 
 ---
 
@@ -54,19 +57,11 @@ Pridajte web na search.google.com/search-console, overte doménu a odošlite `si
 ### 4. Ochrana súkromia
 V `ochrana-sukromia/index.html` a `o-nas/index.html` doplňte svoje meno alebo firmu, adresu a e-mail.
 
-### 5. Google AdSense (keď web beží aspoň niekoľko týždňov)
-1. Požiadajte o účet na adsense.google.com.
-2. Kód vydavateľa (`ca-pub-…`) vložte do `adsenseClient` v `tools/site.config.js` a spustite `node tools/build.js`. Skript sa pridá na všetky indexované stránky.
-3. Pre návštevníkov z EÚ zapnite v AdSense **Ochrana súkromia a správy → GDPR správa (súhlas s cookies)**. Je to Googlom certifikovaný súhlasový banner a vlastný netreba.
-4. Reklamné jednotky vkladajte do prázdnych `<div class="ad-slot"></div>` (sú pod kalkulačkami), prípadne zapnite automatické reklamy.
+### 5. Zarábanie (AdSense, partneri, newsletter, podpora, meranie)
+Všetko sa zapína v `tools/site.config.js` v časti `zarabanie`. Postup krok za krokom, odporúčaní partneri a odhad príjmov sú v **[ZARABANIE.md](ZARABANIE.md)**.
 
-### 6. Affiliate odkazy
-Na stránkach sú pripravené boxy `<div class="partner">` s komentárom „Sem vložte affiliate odkaz“. Vhodní partneri:
-- **fakturačné a účtovné programy** (e-faktúra 2027 je pre ne obrovská téma),
-- **banky a podnikateľské účty** (pre živnostníkov),
-- **online účtovníci**.
-
-Mnohé slovenské SaaS firmy majú partnerské programy. Napíšte im a spýtajte sa, poskytnú vám odkaz a províziu.
+### 6. Vloženie kalkulačiek na iné weby
+Stránka `/vlozit/` funguje hneď. Rozošlite ju účtovným kanceláriám, blogom a rodičovským webom: každá vložená kalkulačka má pod sebou odkaz na váš web.
 
 ### 7. Návštevnosť (toto rozhoduje o zárobku)
 - **Teraz (november – január)** je ideálny čas: e-faktúra od 1. 1. 2027, nové odvody a mzdy na nový rok. Zdieľajte odkazy v FB skupinách pre živnostníkov a podnikateľov a na Reddite r/Slovakia, kde to dáva zmysel (bez spamu).

@@ -13,15 +13,16 @@ const BASE = `http://localhost:${PORT}`;
 const TYPY = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.xml': 'application/xml', '.txt': 'text/plain', '.webmanifest': 'application/manifest+json' };
 // jednoduchý statický server so správaním ako Cloudflare Pages / Netlify (priečinok → index.html, inak 404.html)
-const server = http.createServer((req, res) => {
+const statickyServer = koren => http.createServer((req, res) => {
   let u = decodeURIComponent(req.url.split('?')[0].split('#')[0]);
-  let f = path.join(dir, u);
-  if (!f.startsWith(dir)) { res.writeHead(403); return res.end(); }
+  let f = path.join(koren, u);
+  if (!f.startsWith(koren)) { res.writeHead(403); return res.end(); }
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
-  if (!fs.existsSync(f)) { res.writeHead(404, { 'Content-Type': TYPY['.html'] }); return res.end(fs.readFileSync(path.join(dir, '404.html'))); }
+  if (!fs.existsSync(f)) { res.writeHead(404, { 'Content-Type': TYPY['.html'] }); return res.end(fs.readFileSync(path.join(koren, '404.html'))); }
   res.writeHead(200, { 'Content-Type': TYPY[path.extname(f)] || 'application/octet-stream' });
   res.end(fs.readFileSync(f));
 });
+const server = statickyServer(dir);
 const url = slug => `${BASE}/${slug ? slug + '/' : ''}`;
 const stranky = cfg.stranky.map(s => s.slug);
 const D = cfg.domena;
@@ -51,7 +52,7 @@ const text = (p, sel) => p.$eval(sel, e => e.textContent.trim());
         const sw = await p.evaluate(() => document.documentElement.scrollWidth);
         assert.ok(sw <= sirka, `scrollWidth ${sw} > ${sirka}`);
         assert.deepStrictEqual(js, []);
-        const odkazy = await p.$$eval('a[href^="/"]', as => as.map(a => a.getAttribute('href').split('#')[0]));
+        const odkazy = await p.$$eval('a[href^="/"]', as => as.map(a => a.getAttribute('href').split(/[?#]/)[0]));
         for (const o of new Set(odkazy)) {
           const slug = o.replace(/^\/|\/$/g, '');
           assert.ok(stranky.includes(slug), 'neexistujúci odkaz ' + o);
@@ -197,6 +198,150 @@ const text = (p, sel) => p.$eval(sel, e => e.textContent.trim());
     const odp = await p.goto(BASE + '/neexistuje/');
     assert.strictEqual(odp.status(), 404);
     assert.match(await text(p, 'h1'), /nenašla/);
+  });
+
+  // ---------------- Zdieľanie a vloženie ----------------
+  await t('Zdieľať výsledok: odkaz obsahuje zadané hodnoty a po otvorení ich obnoví', async () => {
+    const ctx = await b.newContext({ permissions: ['clipboard-read', 'clipboard-write'] });
+    const q = await ctx.newPage();
+    await q.goto(url('cista-mzda'));
+    await q.click('#m-ch');                              // režim z čistej na hrubú
+    await q.fill('#suma', '1400'); await q.selectOption('#d15', '2'); await q.uncheck('#nczd');
+    const ocakavane = await text(q, '#res-value');
+    await q.click('[data-share="vysledok"]');
+    await q.waitForTimeout(200);
+    const odkaz = await q.evaluate(() => navigator.clipboard.readText());
+    assert.ok(odkaz.startsWith(D + '/cista-mzda/?'), odkaz);
+    assert.match(await text(q, '[data-share="vysledok"]'), /skopírovaný/);
+    const lokalne = odkaz.replace(D, BASE);
+    const r = await ctx.newPage();
+    await r.goto(lokalne);
+    assert.strictEqual(await r.inputValue('#suma'), '1400');
+    assert.strictEqual(await r.inputValue('#d15'), '2');
+    assert.strictEqual(await r.isChecked('#nczd'), false);
+    assert.strictEqual(await r.getAttribute('#m-ch', 'aria-pressed'), 'true');
+    assert.strictEqual(await text(r, '#res-value'), ocakavane);
+    await ctx.close();
+  });
+
+  await t('Zdieľať výsledok: obnovenie roka a týždňov v materskej', async () => {
+    await p.goto(url('materska') + '?mzda=2000&_b=1.4');  // tlačidlá: [2026, 2027, 34, 37, 43] → 2027 a 43 týž.
+    assert.strictEqual(await p.getAttribute('[data-rok="2027"]', 'aria-pressed'), 'true');
+    assert.strictEqual(await text(p, '#r-dni'), '301');
+    assert.strictEqual(await text(p, '#r-spolu'), E(C.materske(2000, 43, 2027).spolu));
+  });
+
+  await t('Zdieľacie odkazy: Facebook, WhatsApp, X a e-mail smerujú na kanonickú adresu', async () => {
+    await p.goto(url('pn'));
+    const hrefs = await p.$$eval('.share a', as => as.map(a => a.href));
+    const kodovana = encodeURIComponent(D + '/pn/');
+    for (const s of ['facebook.com', 'wa.me', 'x.com', 'mailto:']) {
+      const h = hrefs.find(x => x.includes(s));
+      assert.ok(h && h.includes(kodovana), s + ': ' + h);
+    }
+  });
+
+  await t('Režim vloženia (?embed=1): bez hlavičky, pätičky a reklamy, so zdrojovým odkazom', async () => {
+    await p.goto(url('pn') + '?embed=1');
+    for (const sel of ['header.site', 'footer.site', '.share', '.ad-slot', 'section.content', '.related']) {
+      assert.strictEqual(await p.isVisible(sel), false, sel + ' je viditeľný');
+    }
+    assert.strictEqual(await p.isVisible('.grid.calc'), true);
+    const badge = await p.$eval('.embed-badge a', a => ({ href: a.href, target: a.target }));
+    assert.strictEqual(badge.href, D + '/pn/');
+    assert.strictEqual(badge.target, '_blank');
+    const sw = await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
+    assert.ok(sw);
+  });
+
+  await t('Vložiť na web: generátor kódu a automatická výška náhľadu', async () => {
+    await p.goto(url('vlozit') + '?k=hypoteka');
+    assert.strictEqual(await p.inputValue('#vyber'), 'hypoteka');
+    const kod = await p.inputValue('#kod');
+    assert.ok(kod.includes(`src="${D}/hypoteka/?embed=1"`), kod);
+    assert.ok(kod.includes(`<a href="${D}/hypoteka/">`), 'chýba zdrojový odkaz');
+    assert.ok(kod.includes(`${D}/embed.js`), 'chýba embed.js');
+    await p.selectOption('#sirka', '480px');
+    assert.ok((await p.inputValue('#kod')).includes('max-width:480px'));
+    // náhľad: embed.js nastaví výšku podľa obsahu kalkulačky (pôvodne 640 px)
+    await p.waitForFunction(() => document.getElementById('nahlad').style.height !== '640px', null, { timeout: 8000 });
+    const vyska = await p.$eval('#nahlad', f => parseInt(f.style.height, 10));
+    assert.ok(vyska > 300 && vyska < 4000, 'výška ' + vyska);
+    await p.selectOption('#vyber', 'dph');
+    assert.ok((await p.inputValue('#kod')).includes('/dph/?embed=1'));
+  });
+
+  await t('Hlavičky hostingu: _headers povoľuje vloženie do rámca (bez X-Frame-Options)', async () => {
+    const h = fs.readFileSync(path.join(dir, '_headers'), 'utf8');
+    assert.ok(!/X-Frame-Options/i.test(h));
+    assert.ok(/\/embed\.js[\s\S]*Access-Control-Allow-Origin: \*/.test(h));
+  });
+
+  await t('Bez nastavení zarábania sa nezobrazí prázdna reklama ani partner', async () => {
+    await p.goto(url('dph'));
+    assert.strictEqual(await p.$$eval('ins.adsbygoogle', x => x.length), 0);
+    assert.strictEqual(await p.$$eval('a[rel~="sponsored"]', x => x.length), 0);
+    assert.strictEqual(await p.$$eval('form[data-newsletter]', x => x.length), 0);
+    assert.ok(await p.isVisible('.partner.tip'), 'tip sa má zobraziť namiesto partnera');
+    assert.ok(!fs.existsSync(path.join(dir, 'ads.txt')), 'ads.txt nemá existovať bez AdSense');
+  });
+
+  await t('Zarábanie zapnuté (testovacia konfigurácia): AdSense, ads.txt, partner, newsletter, podpora, meranie', async () => {
+    const os = require('os');
+    const { execFileSync } = require('child_process');
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'spocitajsi-'));
+    for (const x of fs.readdirSync(dir)) {
+      if (x === '.git' || x === 'node_modules') continue;
+      fs.cpSync(path.join(dir, x), path.join(tmp, x), { recursive: true });
+    }
+    const testCfg = path.join(tmp, 'tools', 'test.config.js');
+    fs.writeFileSync(testCfg, `const c = require('./site.config.js');
+c.zarabanie = {
+  adsense: { client: 'ca-pub-1234567890123456', slotPodKalkulackou: '111', slotVObsahu: '222' },
+  partneri: [{ id: 'fakturacia', stranky: ['dph'], nadpis: 'Testovací partner', text: 'Text', tlacidlo: 'Vyskúšať', url: 'https://partner.example/?ref=1' }],
+  newsletter: { akcia: 'https://newsletter.example/subscribe', pole: 'email', skrytePolia: { list: '7' } },
+  podpora: { url: 'https://kava.example/', text: 'Kúpte nám kávu' },
+  analytika: { typ: 'umami', id: 'abc-123', skript: 'https://umami.example/script.js' },
+  kontaktReklama: 'reklama@example.sk'
+};
+module.exports = c;`);
+    execFileSync(process.execPath, [path.join(tmp, 'tools', 'build.js')], { env: { ...process.env, SITE_CONFIG: testCfg } });
+    const dph = fs.readFileSync(path.join(tmp, 'dph', 'index.html'), 'utf8');
+    const hyp = fs.readFileSync(path.join(tmp, 'hypoteka', 'index.html'), 'utf8');
+    assert.ok(dph.includes('pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456'));
+    assert.ok(/<ins class="adsbygoogle"[^>]*data-ad-slot="111"/.test(dph), 'jednotka pod kalkulačkou');
+    assert.ok(/<ins class="adsbygoogle"[^>]*data-ad-slot="222"/.test(dph), 'jednotka v obsahu');
+    assert.strictEqual(fs.readFileSync(path.join(tmp, 'ads.txt'), 'utf8').trim(), 'google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0');
+    assert.ok(/href="https:\/\/partner\.example\/\?ref=1" rel="sponsored nofollow noopener"/.test(dph), 'partner s rel=sponsored');
+    assert.ok(dph.includes('Reklama · partner'), 'označenie reklamy');
+    assert.ok(!hyp.includes('partner.example') && hyp.includes('partner tip'), 'na hypotéke tip, nie partner');
+    assert.ok(dph.includes('action="https://newsletter.example/subscribe"') && dph.includes('name="list" value="7"'));
+    assert.ok(dph.includes('href="https://kava.example/"'), 'podpora v pätičke');
+    assert.ok(dph.includes('"analytika":{"typ":"umami","id":"abc-123"'), 'meranie');
+    assert.ok(fs.readFileSync(path.join(tmp, 'reklama', 'index.html'), 'utf8').includes('reklama@example.sk'));
+    // stránky bez indexovania nemajú reklamu
+    assert.ok(!fs.readFileSync(path.join(tmp, 'ochrana-sukromia', 'index.html'), 'utf8').includes('adsbygoogle.js'));
+    // stránka so zapnutým zarábaním sa v prehliadači načíta bez chýb a reklamné jednotky odošle
+    const q = await b.newPage();
+    const chybyJs = [];
+    q.on('pageerror', e => chybyJs.push(e.message));
+    const tmpServer = statickyServer(tmp);
+    await new Promise(r => tmpServer.listen(PORT + 1, r));
+    await q.route('**/*', r => r.request().url().startsWith(`http://localhost:${PORT + 1}`) ? r.continue() : r.abort());
+    await q.goto(`http://localhost:${PORT + 1}/dph/`);
+    await q.waitForTimeout(200);
+    assert.deepStrictEqual(chybyJs, []);
+    assert.strictEqual(await q.evaluate(() => (window.adsbygoogle || []).length), 2);
+    assert.ok(await q.isVisible('a[data-partner="fakturacia"]'));
+    assert.ok(await q.isVisible('form[data-newsletter] input[type="email"]'));
+    // vo vloženom režime sa reklama nežiada (pauseAdRequests) a nezobrazuje
+    await q.goto(`http://localhost:${PORT + 1}/dph/?embed=1`);
+    assert.strictEqual(await q.evaluate(() => window.adsbygoogle.pauseAdRequests), 1);
+    assert.strictEqual(await q.isVisible('.ad-slot'), false);
+    assert.strictEqual(await q.isVisible('.newsletter'), false);
+    await q.close();
+    tmpServer.close();
+    fs.rmSync(tmp, { recursive: true, force: true });
   });
 
   // ---------------- SEO ----------------
