@@ -1,6 +1,6 @@
 # SpočítajSi – slovenské kalkulačky 2026 a 2027
 
-Statický web (HTML + CSS + JS, bez servera a databázy) so slovenskými kalkulačkami. Zarába na **reklame (Google AdSense)** a **partnerských (affiliate) odkazoch**. Čo je hotové v SEO, popisuje **[SEO.md](SEO.md)**. Ako zapnúť reklamu, partnerov, newsletter a meranie, popisuje **[ZARABANIE.md](ZARABANIE.md)**.
+Statický web (HTML + CSS + JS, bez servera a databázy) so slovenskými kalkulačkami. Zarába na **reklame (Google AdSense)** a **partnerských (affiliate) odkazoch**. Čo je hotové v SEO, popisuje **[SEO.md](SEO.md)**. Nasadenie na VPS popisuje **[DEPLOY.md](DEPLOY.md)**. Ako zapnúť reklamu, partnerov, newsletter a meranie, popisuje **[ZARABANIE.md](ZARABANIE.md)**.
 
 ## Stránky (každá v priečinku s `index.html`, adresa `/nazov/`)
 

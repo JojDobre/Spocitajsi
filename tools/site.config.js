@@ -2,8 +2,8 @@
 // Po zmene spustite: node tools/build.js
 
 module.exports = {
-  // ⚠️ Pred spustením webu zmeňte na svoju doménu (bez lomky na konci)
-  domena: 'https://www.vasa-domena.sk',
+  // Doména webu (bez lomky na konci). Pri zmene spustite node tools/build.js
+  domena: 'https://analyzer.renak.eu',
   nazov: 'SpočítajSi',
   popis: 'Bezplatné slovenské kalkulačky s aktuálnymi sadzbami: mzda, dane, odvody, dávky, hypotéka.',
   farba: '#0b6bcb',

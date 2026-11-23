@@ -3,4 +3,4 @@ Allow: /
 Disallow: /tests/
 Disallow: /tools/
 
-Sitemap: https://www.vasa-domena.sk/sitemap.xml
+Sitemap: https://analyzer.renak.eu/sitemap.xml
