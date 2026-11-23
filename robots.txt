@@ -3,4 +3,4 @@ Allow: /
 Disallow: /tests/
 Disallow: /tools/
 
-Sitemap: https://analyzer.renak.eu/sitemap.xml
+Sitemap: https://spocitajsi.renak.eu/sitemap.xml

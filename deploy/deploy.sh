@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Aktualizácia webu SpočítajSi na VPS: stiahne poslednú verziu z GitHubu a obnoví nginx.
-# Spustenie (ako root):  bash /var/www/spocitajsi/deploy/deploy.sh
-# Prepnutie vetvy:       BRANCH=main bash /var/www/spocitajsi/deploy/deploy.sh
+# Spustenie (ako root):  bash /var/www/spocitajsi.renak.eu/deploy/deploy.sh
+# Prepnutie vetvy:       BRANCH=main bash /var/www/spocitajsi.renak.eu/deploy/deploy.sh
 # Na serveri nič neupravujte ručne – každá aktualizácia prepíše súbory podľa GitHubu.
 set -euo pipefail
 
 REPO="https://github.com/JojDobre/spocitajsi.git"
-DIR="/var/www/spocitajsi"
+DIR="/var/www/spocitajsi.renak.eu"
 # vetva sa pamätá v repozitári; pri prvom spustení sa použije premenná BRANCH alebo main
 BRANCH="${BRANCH:-$(git -C "$DIR" rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)}"
 
